@@ -4,7 +4,9 @@ import os
 import conversion
 import requests
 
-session = sa.login("username", os.getenv("PASSWORD"))
+password = os.getenv('PASSWORD')  # Password stored in environment variable PASSWORD
+
+session = sa.login("username", password)
 cloud = session.connect_scratch_cloud("1100152494")
 client = cloud.requests(no_packet_loss=True,respond_order="finish")
 
