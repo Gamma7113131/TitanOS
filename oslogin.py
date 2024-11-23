@@ -46,6 +46,14 @@ def authenticate_account(username, password):
         print(f"Authentication failed for {username}.")
         return False
 
+# Function to check if a Scratch username exists
+def check_scratch_username(scratch_username):
+    accounts = load_accounts()
+    for account in accounts.values():
+        if account.get("scratch_username") == scratch_username:
+            return True
+    return False
+
 # Set up the Scratch session and connection
 session = scratch3.Session(SESSION_ID, username=USERNAME)
 try:
@@ -69,8 +77,26 @@ def login(combined_username, password):
     if authenticate_account(username, password):
         return f"Welcome back, {username}!"
     else:
-        add_account(username, password, scratch_username)
-        return f"Account created and signed in as {username}."
+        return f"Account: {username}, does not exist."
+
+@client.request
+def check_user(scratch_username):
+    print(f"Check user request received for Scratch username: {scratch_username}")
+    if check_scratch_username(scratch_username):
+        return f"Scratch username {scratch_username} exists."
+    else:
+        return f"Scratch username {scratch_username} does not exist."
+
+@client.request
+def create_account(username, password, scratch_username):
+    print(f"Create account request received for username: {username}, Scratch username: {scratch_username}")
+    accounts = load_accounts()
+    if username in accounts:
+        return f"Account for username {username} already exists."
+    if check_scratch_username(scratch_username):
+        return f"Scratch username {scratch_username} is already associated with another account."
+    add_account(username, password, scratch_username)
+    return f"Account created successfully for {username}."
 
 @client.event
 def on_ready():
