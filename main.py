@@ -2,6 +2,7 @@ import scratchattach as sa
 import time
 import os
 import conversion
+import requests
 
 session = sa.login("username","pwd")
 cloud = session.connect_scratch_cloud("1100152494")
@@ -15,5 +16,12 @@ def on_ready():
 def ping(username):
     print(f"[TitanicOS Backend] Pinged by {username}")
     return "pong"
+
+@client.request
+def bot_ai(model, query, username):
+    response = requests.get(f"http://uukelele.ddns.net/duckchat?model={model}&q={query}").content.decode("utf-8")
+    with open('capture.log','a') as file:
+        file.write("\n{username} --- Used {model} to request '{query}', and the model responded with '{response}'")
+    return response
 
 client.start(thread=True)
