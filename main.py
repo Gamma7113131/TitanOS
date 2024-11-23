@@ -4,7 +4,7 @@ import os
 import conversion
 import requests
 
-session = sa.login("username","pwd")
+session = sa.login("username", os.getenv("PASSWORD"))
 cloud = session.connect_scratch_cloud("1100152494")
 client = cloud.requests(no_packet_loss=True,respond_order="finish")
 
