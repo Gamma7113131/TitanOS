@@ -6,7 +6,7 @@ import requests
 
 password = os.getenv('PASSWORD')  # Password stored in environment variable PASSWORD
 
-session = sa.login("username", password)
+session = sa.login("uukelele", password)
 cloud = session.connect_scratch_cloud("1100152494")
 client = cloud.requests(no_packet_loss=True,respond_order="finish")
 
