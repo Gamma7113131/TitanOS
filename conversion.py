@@ -1,7 +1,6 @@
 from moviepy.editor import VideoFileClip
 from PIL import Image
 from io import BytesIO
-import cv2
 import numpy as np
 import os
 import random
