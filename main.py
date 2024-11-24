@@ -26,7 +26,7 @@ def ping(username):
 @client.request
 def login(username, password):
     print("[TitanicOS Backend] Login request received.")
-    response = oslogin.process_login(username, password)
+    response = oslogin.process_login(f"{username}/{username}", password)
     print(f"[TitanicOS Backend] {response}")
     return response
 
