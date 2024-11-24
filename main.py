@@ -1,12 +1,17 @@
+#Imports
 import scratchattach as sa
 import oslogin
 import os
 
+#Setup
 password = os.getenv('PASSWORD')  # Password stored in environment variable PASSWORD
 
 session = sa.login("uukelele", password)
 cloud = session.connect_scratch_cloud("1100152494")
 client = cloud.requests(no_packet_loss=True, respond_order="finish")
+
+#Setting up directories
+os.makedirs("user_data", exist_ok=True)
 
 @client.event
 def on_ready():
@@ -35,6 +40,7 @@ def check_user(scratch_username):
 def create_account(username, password, scratch_username):
     print(f"Create account request received for username: {username}, Scratch username: {scratch_username}")
     response = oslogin.process_create_account(username, password, scratch_username)
+    os.makedirs(f"user_data/{scratch_username}")
     print(response)
     return response
 
