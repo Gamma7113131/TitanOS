@@ -24,24 +24,24 @@ def ping(username):
     return "pong"
 
 @client.request
-def login(combined_username, password):
-    print("Login request received.")
-    response = oslogin.process_login(combined_username, password)
+def login(username, password):
+    print("[TitanicOS Backend] Login request received.")
+    response = oslogin.process_login(username, password)
+    print(f"[TitanicOS Backend] {response}")
+    return response
+
+@client.request
+def check_user(username):
+    print(f"[TitanicOS Backend] Check user request received for Scratch username: {username}")
+    response = oslogin.process_check_user(username)
     print(response)
     return response
 
 @client.request
-def check_user(scratch_username):
-    print(f"Check user request received for Scratch username: {scratch_username}")
-    response = oslogin.process_check_user(scratch_username)
-    print(response)
-    return response
-
-@client.request
-def create_account(username, password, scratch_username):
-    print(f"Create account request received for username: {username}, Scratch username: {scratch_username}")
-    response = oslogin.process_create_account(username, password, scratch_username)
-    os.makedirs(f"user_data/{scratch_username}")
+def create_account(username, password):
+    print(f"Create account request received for username: {username}")
+    response = oslogin.process_create_account(username, password, username)
+    os.makedirs(f"user_data/{username}")
     print(response)
     return response
 
