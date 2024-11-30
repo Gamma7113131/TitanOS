@@ -37,14 +37,14 @@ def ping(username):
 @client.request
 def login(username, password):
     print("[TitanicOS Backend] [scratch] Login request received.")
-    response = oslogin.process_login(f"{username}/{username}", password)
+    response = oslogin.process_login(username, password)
     print(f"[TitanicOS Backend] {response}")
     return response
 
 @tclient.request
 def login(username, password):
     print("[TitanicOS Backend] [turbowarp] Login request received.")
-    response = oslogin.process_login(f"{username}/{username}", password)
+    response = oslogin.process_login(username, password)
     print(f"[TitanicOS Backend] {response}")
     return response
 
@@ -65,7 +65,7 @@ def check_user(username):
 @client.request
 def create_account(username, password):
     print(f"[scratch] Create account request received for username: {username}")
-    response = oslogin.process_create_account(username, password, username)
+    response = oslogin.process_create_account(username, password)
     os.makedirs(f"user_data/{username}")
     print(response)
     return response
@@ -73,7 +73,7 @@ def create_account(username, password):
 @tclient.request
 def create_account(username, password):
     print(f"[turbowarp] Create account request received for username: {username}")
-    response = oslogin.process_create_account(username, password, username)
+    response = oslogin.process_create_account(username, password)
     os.makedirs(f"user_data/{username}")
     print(response)
     return response
