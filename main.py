@@ -92,5 +92,20 @@ def bot_ai(model, query, username):
         file.write(f"\n{username} --- Used {model} to request '{query}'.")
     return response
 
+@client.request
+def view_folder(username):
+    parent_folder = f'./user_data/{username}'
+    items = os.listdir(parent_folder)
+    items_dict = {}
+
+    for item in items:
+        item_path = os.path.join(parent_folder, item)
+        if os.path.isdir(item_path):
+            items_dict[item] = 'folder'
+        else:
+            items_dict[item] = 'file'
+    
+    return items_dict
+
 client.start(thread=True)
 tclient.start(thread=True)
