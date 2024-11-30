@@ -147,7 +147,7 @@ def get_weather(location):
         local_time = data['location']['localtime']
 
         # Format the return as requested
-        weather_info = f"{location_name}|{condition}|Temp: {temp_c}°C|Wind: {wind_mph} mph|Humidity: {humidity}%|Feels like: {feelslike_c}°C|Time: {local_time}"
+        weather_info = [location_name,condition,f"Temp: {temp_c}°C",f"Wind: {wind_mph} mph",f"Humidity: {humidity}%",f"Feels like: {feelslike_c}°C",f"Time: {local_time}"]
         
         return weather_info
     else:
@@ -178,7 +178,7 @@ def get_weather(location):
         local_time = data['location']['localtime']
 
         # Format the return as requested
-        weather_info = f"{location_name}|{condition}|Temp: {temp_c}°C|Wind: {wind_mph} mph|Humidity: {humidity}%|Feels like: {feelslike_c}°C|Time: {local_time}"
+        weather_info = [location_name,condition,f"Temp: {temp_c}°C",f"Wind: {wind_mph} mph",f"Humidity: {humidity}%",f"Feels like: {feelslike_c}°C",f"Time: {local_time}"]
         
         return weather_info
     else:
