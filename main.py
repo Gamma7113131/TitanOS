@@ -122,5 +122,67 @@ def view_folder(username):
     
     return items_list
 
+@client.request
+def get_weather(location):
+    # Your WeatherAPI key
+    api_key = 'b5d7f18efb744bfe9c4135951242408'
+    
+    # Fetch weather data from WeatherAPI
+    url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={location}"
+    response = requests.get(url)
+    
+    # Check if the response is successful
+    if response.status_code == 200:
+        data = response.json()
+        
+        # Extract necessary details from the response
+        location_name = data['location']['name']
+        region = data['location']['region']
+        country = data['location']['country']
+        temp_c = data['current']['temp_c']
+        condition = data['current']['condition']['text']
+        wind_mph = data['current']['wind_mph']
+        humidity = data['current']['humidity']
+        feelslike_c = data['current']['feelslike_c']
+        local_time = data['location']['localtime']
+
+        # Format the return as requested
+        weather_info = f"{location_name}|{condition}|Temp: {temp_c}°C|Wind: {wind_mph} mph|Humidity: {humidity}%|Feels like: {feelslike_c}°C|Time: {local_time}"
+        
+        return weather_info
+    else:
+        return f"Error fetching weather data for {location}"
+
+@tclient.request
+def get_weather(location):
+    # Your WeatherAPI key
+    api_key = 'b5d7f18efb744bfe9c4135951242408'
+    
+    # Fetch weather data from WeatherAPI
+    url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={location}"
+    response = requests.get(url)
+    
+    # Check if the response is successful
+    if response.status_code == 200:
+        data = response.json()
+        
+        # Extract necessary details from the response
+        location_name = data['location']['name']
+        region = data['location']['region']
+        country = data['location']['country']
+        temp_c = data['current']['temp_c']
+        condition = data['current']['condition']['text']
+        wind_mph = data['current']['wind_mph']
+        humidity = data['current']['humidity']
+        feelslike_c = data['current']['feelslike_c']
+        local_time = data['location']['localtime']
+
+        # Format the return as requested
+        weather_info = f"{location_name}|{condition}|Temp: {temp_c}°C|Wind: {wind_mph} mph|Humidity: {humidity}%|Feels like: {feelslike_c}°C|Time: {local_time}"
+        
+        return weather_info
+    else:
+        return f"Error fetching weather data for {location}"
+
 client.start(thread=True)
 tclient.start(thread=True)
