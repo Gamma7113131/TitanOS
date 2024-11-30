@@ -16,13 +16,12 @@ def save_accounts(accounts):
     with open(ACCOUNTS_FILE, "w") as file:
         json.dump(accounts, file, indent=4)
 
-def add_account(username, password, scratch_username):
+def add_account(username, password):
     """Add a new account."""
     accounts = load_accounts()
     if username not in accounts:
         accounts[username] = {
             "password": password,
-            "scratch_username": scratch_username
         }
         save_accounts(accounts)
         return f"Account created for {username}."
@@ -35,38 +34,30 @@ def authenticate_account(username, password):
         return True, f"User {username} authenticated successfully."
     return False, f"Authentication failed for {username}."
 
-def check_scratch_username(scratch_username):
-    """Check if a Scratch username exists in the accounts."""
-    accounts = load_accounts()
-    for account in accounts.values():
-        if account.get("scratch_username") == scratch_username:
-            return True
-    return False
 
-def create_account(username, password, scratch_username):
+def create_account(username, password):
     """Create a new account."""
     accounts = load_accounts()
     if username in accounts:
         return f"Account for username {username} already exists."
-    if check_scratch_username(scratch_username):
-        return f"Scratch username {scratch_username} is already associated with another account."
-    return add_account(username, password, scratch_username)
+    return add_account(username, password)
+
+def check_username(username):
+    accounts = load_accounts()
+    if username in accounts:
+        return True
+    return False
 
 # API for main.py to use
-def process_login(combined_username, password):
-    """Process a login request."""
-    try:
-        username, scratch_username = combined_username.split("/")
-    except ValueError:
-        return "invalid"
-    
+def process_login(username, password):
+    """Process a login request."""   
     success, message = authenticate_account(username, password)
     return success
 
-def process_check_user(scratch_username):
+def process_check_user(username):
     """Check if a Scratch username exists."""
-    return check_scratch_username(scratch_username)
+    return check_username(username)
 
-def process_create_account(username, password, scratch_username):
+def process_create_account(username, password):
     """Process account creation."""
-    return create_account(username, password, scratch_username)
+    return create_account(username, password)
