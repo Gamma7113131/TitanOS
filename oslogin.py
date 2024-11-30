@@ -58,16 +58,14 @@ def process_login(combined_username, password):
     try:
         username, scratch_username = combined_username.split("/")
     except ValueError:
-        return "Invalid format for username. Use 'username/scratch_username'."
+        return "invalid"
     
     success, message = authenticate_account(username, password)
-    return message
+    return success
 
 def process_check_user(scratch_username):
     """Check if a Scratch username exists."""
-    if check_scratch_username(scratch_username):
-        return f"Scratch username {scratch_username} exists."
-    return f"Scratch username {scratch_username} does not exist."
+    return check_scratch_username(scratch_username)
 
 def process_create_account(username, password, scratch_username):
     """Process account creation."""
