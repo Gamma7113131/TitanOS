@@ -1,3 +1,3 @@
 # TitanOS
 
-Github Repo for TitanicOS
+Github Repo for TitanOS
