@@ -96,16 +96,31 @@ def bot_ai(model, query, username):
 def view_folder(username):
     parent_folder = f'./user_data/{username}'
     items = os.listdir(parent_folder)
-    items_dict = {}
+    items_list = []
 
     for item in items:
         item_path = os.path.join(parent_folder, item)
         if os.path.isdir(item_path):
-            items_dict[item] = 'folder'
+            items_list.append(f"1{item}")
         else:
-            items_dict[item] = 'file'
+            items_list.append(f"0{item}")
     
-    return items_dict
+    return items_list
+
+@tclient.request
+def view_folder(username):
+    parent_folder = f'./user_data/{username}'
+    items = os.listdir(parent_folder)
+    items_list = []
+
+    for item in items:
+        item_path = os.path.join(parent_folder, item)
+        if os.path.isdir(item_path):
+            items_list.append(f"1{item}")
+        else:
+            items_list.append(f"0{item}")
+    
+    return items_list
 
 client.start(thread=True)
 tclient.start(thread=True)
