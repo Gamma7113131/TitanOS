@@ -94,9 +94,9 @@ def update_location(username, new_location):
     return f"User {username} does not exist. Use add_location() to add a new user."
 
 def get_location(username):
-    """Retrieve the location for a given user."""
+    """Check if a location exists for a given user and return True or False."""
     locations = load_locations()
     if username in locations:
-        return f"{locations[username]}"
-    return f"No location found for {username}."
+        return True
+    return False
     
