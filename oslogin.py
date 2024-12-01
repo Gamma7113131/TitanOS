@@ -62,41 +62,23 @@ def process_check_user(username):
 def process_create_account(username, password):
     """Process account creation."""
     return create_account(username, password)
-def load_locations():
-    """Load locations from the JSON file."""
-    if os.path.exists(LOCATIONS_FILE):
-        with open(LOCATIONS_FILE, "r") as file:
-            return json.load(file)
-    return {}
-
-def save_locations(locations):
-    """Save locations to the JSON file."""
-    with open(LOCATIONS_FILE, "w") as file:
-        json.dump(locations, file, indent=4)
 
 def add_location(username, location):
     """Add or update a location for a user."""
-    locations = load_locations()
-    if username not in locations:
-        locations[username] = location
-        save_locations(locations)
-        return f"Location added for {username}: {location}."
+    accounts = load_accounts()
+    if username in accounts:
+        accounts[username]["location"] = location
+        save_accounts(accounts)
+        return f"Location for {username} updated to {location}."
     else:
-        return f"User {username} already has a location. Use update_location() if needed."
-
-def update_location(username, new_location):
-    """Update the location for an existing user."""
-    locations = load_locations()
-    if username in locations:
-        locations[username] = new_location
-        save_locations(locations)
-        return f"Location for {username} updated to {new_location}."
-    return f"User {username} does not exist. Use add_location() to add a new user."
+        # If the user doesn't exist, you can either add them or return a message.
+        accounts[username] = {"location": location}  # Optionally add new user
+        save_accounts(accounts)
+        return f"User {username} added with location {location}."
 
 def get_location(username):
-    """Check if a location exists for a given user and return True or False."""
-    locations = load_locations()
-    if username in locations:
+    """Check if a location exists for a given user."""
+    accounts = load_accounts()
+    if username in accounts and "location" in accounts[username]:
         return True
     return False
-    
