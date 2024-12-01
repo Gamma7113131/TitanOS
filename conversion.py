@@ -11,7 +11,8 @@ def rgb_to_number(rgb):
 	return r * 256**2 + g * 256 + b
 
 def convert_img(img, size):
-	resized_img = img.resize((size, size))
+	img_d = Image.open(BytesIO(img))
+	resized_img = img_d.resize((size, size))
 	image_data = []
 	for y in range(size):
 		row = []
@@ -24,7 +25,7 @@ def convert_img(img, size):
 def convert_vid(vid, size, fps):
 	video_path = f"temp_{random.randint(000,999)}.mp4"
 	with open(video_path, 'wb') as video_file:
-		for chunk in video_response.iter_content(chunk_size=8192):
+		for chunk in vid.iter_content(chunk_size=8192):
 			video_file.write(chunk)
 	video_clip = VideoFileClip(video_path)
 	resized_clip = video_clip.resize((size, size)).set_fps(fps)
