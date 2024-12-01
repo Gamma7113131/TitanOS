@@ -205,10 +205,12 @@ def get_news(location):
             image_url = article.get("urlToImage", "No image")
             
             # Format each article for output
-            news_list.append(f"Title: {title}\nDescription: {description}\nURL: {url}\nImage: {image_url}\n")
-        
-        # Join the articles and return as a single string
-        return "\n".join(news_list)
+            news_list.append(title)
+            news_list.append(description)
+            news_list.append(url)
+            news_list.append(image_url)
+            
+        return news_list
     else:
         return "No news found or an error occurred."
 
@@ -233,10 +235,12 @@ def get_news(location):
             image_url = article.get("urlToImage", "No image")
             
             # Format each article for output
-            news_list.append(f"Title: {title}\nDescription: {description}\nURL: {url}\nImage: {image_url}\n")
-        
-        # Join the articles and return as a single string
-        return "\n".join(news_list)
+            news_list.append(title)
+            news_list.append(description)
+            news_list.append(url)
+            news_list.append(image_url)
+            
+        return news_list
     else:
         return "No news found or an error occurred."
 
