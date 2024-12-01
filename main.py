@@ -238,7 +238,12 @@ def get_news(location):
             news_list.append(title)
             news_list.append(description)
             news_list.append(url)
-            news_list.append(image_url)
+            if not image_url = "No image":
+                response = requests.get(image_url).content
+                image_data = conversion.convert_img(response, 64)
+                news_list.append(image_data)
+            else:
+                news_list.append(image_url)
             
         return news_list
     else:
