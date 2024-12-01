@@ -253,42 +253,29 @@ def get_news(location):
 @client.request
 def add_location(username, location):
     print(f"[client] Add location request received for username: {username}")
-    response = oslogin.add_location(username, location)
+    response = oslogin.update_data("location", username, location)
     print(response)
     return response
 
 @tclient.request
 def add_location(username, location):
     print(f"[tclient] Add location request received for username: {username}")
-    response = oslogin.add_location(username, location)
+    response = oslogin.update_data("location", username, location)
     print(response)
     return response
 
-@client.request
-def update_location(username, new_location):
-    print(f"[client] Update location request received for username: {username}")
-    response = oslogin.update_location(username, new_location)
-    print(response)
-    return response
-
-@tclient.request
-def update_location(username, new_location):
-    print(f"[tclient] Update location request received for username: {username}")
-    response = oslogin.update_location(username, new_location)
-    print(response)
-    return response
 
 @client.request
 def get_location(username):
     print(f"[client] Get location request received for username: {username}")
-    response = oslogin.get_location(username)
+    response = oslogin.get_data("location", username)
     print(response)
     return response
 
 @tclient.request
 def get_location(username):
     print(f"[tclient] Get location request received for username: {username}")
-    response = oslogin.get_location(username)
+    response = oslogin.get_data("location", username)
     print(response)
     return response
 
