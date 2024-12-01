@@ -3,6 +3,7 @@ import os
 
 # JSON file to store account information
 ACCOUNTS_FILE = "accounts.json"
+LOCATIONS_FILE = "locations.json"
 
 def load_accounts():
     """Load accounts from the JSON file."""
@@ -61,3 +62,41 @@ def process_check_user(username):
 def process_create_account(username, password):
     """Process account creation."""
     return create_account(username, password)
+def load_locations():
+    """Load locations from the JSON file."""
+    if os.path.exists(LOCATIONS_FILE):
+        with open(LOCATIONS_FILE, "r") as file:
+            return json.load(file)
+    return {}
+
+def save_locations(locations):
+    """Save locations to the JSON file."""
+    with open(LOCATIONS_FILE, "w") as file:
+        json.dump(locations, file, indent=4)
+
+def add_location(username, location):
+    """Add or update a location for a user."""
+    locations = load_locations()
+    if username not in locations:
+        locations[username] = location
+        save_locations(locations)
+        return f"Location added for {username}: {location}."
+    else:
+        return f"User {username} already has a location. Use update_location() if needed."
+
+def update_location(username, new_location):
+    """Update the location for an existing user."""
+    locations = load_locations()
+    if username in locations:
+        locations[username] = new_location
+        save_locations(locations)
+        return f"Location for {username} updated to {new_location}."
+    return f"User {username} does not exist. Use add_location() to add a new user."
+
+def get_location(username):
+    """Retrieve the location for a given user."""
+    locations = load_locations()
+    if username in locations:
+        return f"{locations[username]}"
+    return f"No location found for {username}."
+    
