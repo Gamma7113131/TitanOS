@@ -239,12 +239,12 @@ def get_news(location):
             news_list.append(title)
             news_list.append(description)
             news_list.append(url)
-            if not image_url == None:
+            if image_url:
                 response = requests.get(image_url).content
                 image_data = conversion.convert_img(response, 64)
-                news_list.append(image_data)
+                news_list.append(str(image_data))
             else:
-                news_list.append(image_url)
+                news_list.append("None")
             
         return news_list
     else:
