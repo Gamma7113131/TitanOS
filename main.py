@@ -244,7 +244,7 @@ def get_news(location):
                 image_data = conversion.convert_img(response, 32)
                 news_list.append(str(image_data))
             else:
-                response = requests.get("https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg").content
+                response = requests.get("https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=").content
                 image_data = conversion.convert_img(response, 32)
                 news_list.append(str(image_data))
             
