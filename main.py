@@ -184,5 +184,61 @@ def get_weather(location):
     else:
         return f"Error fetching weather data for {location}"
 
+@client.request
+def get_news(location):
+    # Fetch news from NewsAPI, limiting to 5 results
+    response = requests.get(f"https://newsapi.org/v2/everything?q={location}&apiKey=3fc7112ae7f84c2e8ec14106576d2a0f&pageSize=5")
+    
+    # Parse the response JSON
+    news_data = response.json()
+    
+    # Check if the request was successful
+    if news_data.get("status") == "ok" and news_data.get("articles"):
+        articles = news_data["articles"]
+        
+        # Format the articles to a readable string
+        news_list = []
+        for article in articles:
+            title = article.get("title", "No title")
+            description = article.get("description", "No description")
+            url = article.get("url", "No URL")
+            image_url = article.get("urlToImage", "No image")
+            
+            # Format each article for output
+            news_list.append(f"Title: {title}\nDescription: {description}\nURL: {url}\nImage: {image_url}\n")
+        
+        # Join the articles and return as a single string
+        return "\n".join(news_list)
+    else:
+        return "No news found or an error occurred."
+
+@tclient.request
+def get_news(location):
+    # Fetch news from NewsAPI, limiting to 5 results
+    response = requests.get(f"https://newsapi.org/v2/everything?q={location}&apiKey=3fc7112ae7f84c2e8ec14106576d2a0f&pageSize=5")
+    
+    # Parse the response JSON
+    news_data = response.json()
+    
+    # Check if the request was successful
+    if news_data.get("status") == "ok" and news_data.get("articles"):
+        articles = news_data["articles"]
+        
+        # Format the articles to a readable string
+        news_list = []
+        for article in articles:
+            title = article.get("title", "No title")
+            description = article.get("description", "No description")
+            url = article.get("url", "No URL")
+            image_url = article.get("urlToImage", "No image")
+            
+            # Format each article for output
+            news_list.append(f"Title: {title}\nDescription: {description}\nURL: {url}\nImage: {image_url}\n")
+        
+        # Join the articles and return as a single string
+        return "\n".join(news_list)
+    else:
+        return "No news found or an error occurred."
+
 client.start(thread=True)
 tclient.start(thread=True)
