@@ -3,6 +3,7 @@ import scratchattach as sa
 import oslogin
 import os
 import requests
+import conversion
 
 #Setup
 password = os.getenv('PASSWORD')  # Password stored in environment variable PASSWORD
