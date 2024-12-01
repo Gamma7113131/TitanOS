@@ -77,8 +77,8 @@ def add_location(username, location):
         return f"User {username} added with location {location}."
 
 def get_location(username):
-    """Check if a location exists for a given user."""
+    """Return the location for a given user if it exists, otherwise return False."""
     accounts = load_accounts()
     if username in accounts and "location" in accounts[username]:
-        return True
+        return accounts[username]["location"]
     return False
