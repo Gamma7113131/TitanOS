@@ -3,7 +3,6 @@ import os
 
 # JSON file to store account information
 ACCOUNTS_FILE = "accounts.json"
-LOCATIONS_FILE = "locations.json"
 
 def load_accounts():
     """Load accounts from the JSON file."""
@@ -63,22 +62,18 @@ def process_create_account(username, password):
     """Process account creation."""
     return create_account(username, password)
 
-def add_location(username, location):
-    """Add or update a location for a user."""
+
+def update_data(name, username, data):
     accounts = load_accounts()
     if username in accounts:
-        accounts[username]["location"] = location
+        accounts[username][name] = data
         save_accounts(accounts)
-        return f"Location for {username} updated to {location}."
+        return True
     else:
-        # If the user doesn't exist, you can either add them or return a message.
-        accounts[username] = {"location": location}  # Optionally add new user
-        save_accounts(accounts)
-        return f"User {username} added with location {location}."
+        return False
 
-def get_location(username):
-    """Return the location for a given user if it exists, otherwise return False."""
+def get_data(name, username):
     accounts = load_accounts()
-    if username in accounts and "location" in accounts[username]:
-        return accounts[username]["location"]
+    if username in accounts and name in accounts[username]:
+        return accounts[username][name]
     return False
