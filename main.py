@@ -235,7 +235,7 @@ def get_news(location):
             url = article.get("url", "No URL")
             image_url = article.get("urlToImage", "No image")
             if not image_url:
-                image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png"
+                image_url = "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg"
             
             # Format each article for output
             news_list.append(title)
