@@ -234,19 +234,17 @@ def get_news(location):
             description = article.get("description", "No description")
             url = article.get("url", "No URL")
             image_url = article.get("urlToImage", "No image")
+            if not image_url:
+                image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png"
             
             # Format each article for output
             news_list.append(title)
             news_list.append(description)
             news_list.append(url)
-            if image_url:
-                response = requests.get(image_url).content
-                image_data = conversion.convert_img(response, 32)
-                news_list.append(str(image_data))
-            else:
-                response = requests.get("https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png").content
-                image_data = conversion.convert_img(response, 32)
-                news_list.append(str(image_data))
+
+            response = requests.get(image_url).content
+            image_data = conversion.convert_img(response, 32)
+            news_list.append(str(image_data))
             
         return news_list
     else:
