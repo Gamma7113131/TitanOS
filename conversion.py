@@ -22,6 +22,16 @@ def convert_img(img, size):
 		image_data.append(row)
 	return image_data
 
+def convert_frame(img,size):
+	image_data = []
+	for y in range(size):
+		row = []
+		for x in range(size):
+			rgb = img.getpixel((x, y))[:3]
+			row.append(rgb_to_number(rgb))
+		image_data.append(row)
+	return image_data
+
 def convert_vid(vid, size, fps):
 	video_path = f"temp_{random.randint(000,999)}.mp4"
 	with open(video_path, 'wb') as video_file:
