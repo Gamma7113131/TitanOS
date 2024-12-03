@@ -32,7 +32,7 @@ def convert_vid(vid, size, fps):
 	frames_data = []
 	for frame in resized_clip.iter_frames(fps=fps,dtype="uint8"):
 		pil_image = Image.fromarray(frame)
-		frame_data = convert_img(pil_image)
+		frame_data = convert_img(pil_image, size)
 		frames_data.append(frame_data)
 		
 	video_clip.close()
