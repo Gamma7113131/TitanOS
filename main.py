@@ -242,8 +242,13 @@ def get_news(location):
             news_list.append(description)
             news_list.append(url)
 
-            response = requests.get(image_url).content
-            image_data = conversion.convert_img(response, 32)
+            try:
+                response = requests.get(image_url).content
+                image_data = conversion.convert_img(response, 32)
+            except:
+                response = requests.get("https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg").content
+                image_data = conversion.convert_img(response, 32)
+                
             news_list.append(str(image_data))
             
         return news_list
