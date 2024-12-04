@@ -282,5 +282,22 @@ def get_location(username):
     print(response)
     return response
 
+@client.request
+def update_data(data, username, content):
+    return oslogin.update_data(data,username,content)
+
+@client.request
+def get_data(data, username):
+    return oslogin.get_data(data, username)
+
+@tclient.request
+def update_data(data, username, content):
+    return oslogin.update_data(data,username,content)
+
+@tclient.request
+def get_data(data, username):
+    return oslogin.get_data(data, username)
+
+
 client.start(thread=True)
 tclient.start(thread=True)
