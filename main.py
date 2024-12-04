@@ -145,10 +145,9 @@ def get_weather(location):
         wind_mph = data['current']['wind_mph']
         humidity = data['current']['humidity']
         feelslike_c = data['current']['feelslike_c']
-        local_time = data['location']['localtime']
 
         # Format the return as requested
-        weather_info = [location_name,condition,f"Temp: {temp_c}°C",f"Wind: {wind_mph} mph",f"Humidity: {humidity}%",f"Feels like: {feelslike_c}°C",f"Time: {local_time}"]
+        weather_info = [location_name,condition,f"Temp: {temp_c}°C",f"Wind: {wind_mph} mph",f"Humidity: {humidity}%",f"Feels like: {feelslike_c}°C"]
         
         return weather_info
     else:
@@ -176,10 +175,9 @@ def get_weather(location):
         wind_mph = data['current']['wind_mph']
         humidity = data['current']['humidity']
         feelslike_c = data['current']['feelslike_c']
-        local_time = data['location']['localtime']
 
         # Format the return as requested
-        weather_info = [location_name,condition,f"Temp: {temp_c}°C",f"Wind: {wind_mph} mph",f"Humidity: {humidity}%",f"Feels like: {feelslike_c}°C",f"Time: {local_time}"]
+        weather_info = [location_name,condition,f"Temp: {temp_c}°C",f"Wind: {wind_mph} mph",f"Humidity: {humidity}%",f"Feels like: {feelslike_c}°C"]
         
         return weather_info
     else:
