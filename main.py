@@ -333,23 +333,23 @@ def get_sports_data(team_id):
         to_return.append(event['strTimestamp'])
         to_return.append(f"{event['strVenue']}, {event['strCountry']}")
 
-        # Fetch and convert home team image
-        home_img_url = event.get("strThumb", "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg")
+        # Fetch and convert home team badge
+        home_badge_url = event.get("strHomeTeamBadge", "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg")
         try:
-            home_image_data = conversion.convert_img(requests.get(home_img_url).content, 32)
+            home_badge_data = conversion.convert_img(requests.get(home_badge_url).content, 32)
         except Exception as e:
             placeholder_url = "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg"
-            home_image_data = conversion.convert_img(requests.get(placeholder_url).content, 32)
-        to_return.append(f"{str(home_image_data)}")
+            home_badge_data = conversion.convert_img(requests.get(placeholder_url).content, 32)
+        to_return.append(f"{str(home_badge_data)}")
         
-        # Fetch and convert away team image
-        away_img_url = event.get("strAwayThumb", "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg")
+        # Fetch and convert away team badge
+        away_badge_url = event.get("strAwayTeamBadge", "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg")
         try:
-            away_image_data = conversion.convert_img(requests.get(away_img_url).content, 32)
+            away_badge_data = conversion.convert_img(requests.get(away_badge_url).content, 32)
         except Exception as e:
             placeholder_url = "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg"
-            away_image_data = conversion.convert_img(requests.get(placeholder_url).content, 32)
-        to_return.append(f"{str(away_image_data)}")
+            away_badge_data = conversion.convert_img(requests.get(placeholder_url).content, 32)
+        to_return.append(f"{str(away_badge_data)}")
     
     return to_return
 
