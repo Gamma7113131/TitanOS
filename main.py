@@ -298,6 +298,41 @@ def update_data(data, username, content):
 def get_data(data, username):
     return oslogin.get_data(data, username)
 
+@client.request
+def get_team_id(query):
+    response = requests.get(f"https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t={query}").json()
+    return response["teams"][0]["idTeam"]
+
+@client.request
+def get_sports_data(team_id):
+    response = requests.get(f"https://www.thesportsdb.com/api/v1/json/3/eventslast.php?id={team_id}").json()
+    to_return = []
+    for i in range(5):
+        event = response["results"][i]
+        to_return.append(event["strEvent"])
+        to_return.append(f"{event['intHomeScore']}-{event['intAwayScore']}")
+        to_return.append(event['strTimestamp'])
+        to_return.append(f"{event['strVenue']}, {event['strCountry']}")
+    return to_return
+
+@tclient.request
+def get_team_id(query):
+    response = requests.get(f"https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t={query}").json()
+    return response["teams"][0]["idTeam"]
+
+@tclient.request
+def get_sports_data(team_id):
+    response = requests.get(f"https://www.thesportsdb.com/api/v1/json/3/eventslast.php?id={team_id}").json()
+    to_return = []
+    for i in range(5):
+        event = response["results"][i]
+        to_return.append(event["strEvent"])
+        to_return.append(f"{event['intHomeScore']}-{event['intAwayScore']}")
+        to_return.append(event['strTimestamp'])
+        to_return.append(f"{event['strVenue']}, {event['strCountry']}")
+    return to_return
+    
+
 
 client.start(thread=True)
 tclient.start(thread=True)
