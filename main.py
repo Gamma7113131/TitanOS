@@ -332,20 +332,26 @@ def get_sports_data(team_id):
         to_return.append(f"{event['intHomeScore']}-{event['intAwayScore']}")
         to_return.append(event['strTimestamp'])
         to_return.append(f"{event['strVenue']}, {event['strCountry']}")
-        
+
         # Fetch and convert home team image
-        home_img_url = event["strThumb"] if event.get("strThumb") else "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg"
-        home_image_data = conversion.convert_img(requests.get(home_img_url).content, 32)
+        home_img_url = event.get("strThumb", "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg")
+        try:
+            home_image_data = conversion.convert_img(requests.get(home_img_url).content, 32)
+        except Exception as e:
+            placeholder_url = "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg"
+            home_image_data = conversion.convert_img(requests.get(placeholder_url).content, 32)
         to_return.append(f"{str(home_image_data)}")
         
         # Fetch and convert away team image
-        away_img_url = event["strAwayThumb"] if event.get("strAwayThumb") else "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg"
-        away_image_data = conversion.convert_img(requests.get(away_img_url).content, 32)
+        away_img_url = event.get("strAwayThumb", "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg")
+        try:
+            away_image_data = conversion.convert_img(requests.get(away_img_url).content, 32)
+        except Exception as e:
+            placeholder_url = "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg"
+            away_image_data = conversion.convert_img(requests.get(placeholder_url).content, 32)
         to_return.append(f"{str(away_image_data)}")
     
     return to_return
-    
-
 
 client.start(thread=True)
 tclient.start(thread=True)
