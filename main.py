@@ -326,10 +326,23 @@ def get_sports_data(team_id):
     to_return = []
     for i in range(5):
         event = response["results"][i]
+        
+        # Add basic event details
         to_return.append(event["strEvent"])
         to_return.append(f"{event['intHomeScore']}-{event['intAwayScore']}")
         to_return.append(event['strTimestamp'])
         to_return.append(f"{event['strVenue']}, {event['strCountry']}")
+        
+        # Fetch and convert home team image
+        home_img_url = event["strThumb"] if event.get("strThumb") else "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg"
+        home_image_data = conversion.convert_img(requests.get(home_img_url).content, 32)
+        to_return.append(f"Home Team Image: {str(home_image_data)}")
+        
+        # Fetch and convert away team image
+        away_img_url = event["strAwayThumb"] if event.get("strAwayThumb") else "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg"
+        away_image_data = conversion.convert_img(requests.get(away_img_url).content, 32)
+        to_return.append(f"Away Team Image: {str(away_image_data)}")
+    
     return to_return
     
 
