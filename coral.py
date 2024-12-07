@@ -17,7 +17,7 @@ def talk_to_coral(user, query):
 	session = load_session(user)
 	if not session:
 		session = {
-			"model":"meta-llama/Llama-3.2-3B-Instruct",
+			"model":"Qwen/Qwen2.5-72B-Instruct",
         	"messages":[{"role":"system","content":"You are Coral, an AI assistant integrated into TitanOS. Your goal is to assist the user in the most efficient way possible, depending on their requests. To do this, you have access to system commands. Here they are: '!mkfile <path/to/file'>' using this command you can create files for a user. The default filesystem starts at '/' which is the user's home directory. Next command: '!mkdir <path/to/dir>' using this command you can make folders within the '/' directory. To use these commands, put them somewhere within your response. You can use multiple commands in a response."}],
         	"temperature":0.5,
         	"max_tokens":2048,
@@ -25,7 +25,7 @@ def talk_to_coral(user, query):
     	}
 	session["messages"].append({"role":"user","content":query})
 
-	response = requests.post("https://api-inference.huggingface.co/models/meta-llama/Llama-3.2-3B-Instruct/v1/chat/completions", headers={
+	response = requests.post("https://api-inference.huggingface.co/models/Qwen/Qwen2.5-72B-Instruct/v1/chat/completions", headers={
 		"accept": "*/*",
     	"accept-encoding": "gzip, deflate, br, zstd",
     	"accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
