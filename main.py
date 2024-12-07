@@ -310,10 +310,10 @@ def get_sports_data(team_id):
     response = requests.get(f"https://www.thesportsdb.com/api/v1/json/3/eventslast.php?id={team_id}").json()
     to_return = []
     for event in response["results"][:5]:
-        to_return.append(event["strEvent"])
-        to_return.append(f"{event['intHomeScore']}-{event['intAwayScore']}")
-        to_return.append(event['strTimestamp'])
-        to_return.append(f"{event['strVenue']}, {event['strCountry']}")
+        to_return.append(event.get("strEvent", "N/A"))
+        to_return.append(f"{event.get('intHomeScore', 'N/A')}-{event.get('intAwayScore', 'N/A')}")
+        to_return.append(event.get('strTimestamp','N/A'))
+        to_return.append(f"{event.get('strVenue','N/A')}, {event.get('strCountry','N/A')}")
     return to_return
 
 @tclient.request
@@ -330,10 +330,10 @@ def get_sports_data(team_id):
     for event in response["results"][:5]:
         
         # Add basic event details
-        to_return.append(event["strEvent"])
-        to_return.append(f"{event['intHomeScore']}-{event['intAwayScore']}")
-        to_return.append(event['strTimestamp'])
-        to_return.append(f"{event['strVenue']}, {event['strCountry']}")
+        to_return.append(event.get("strEvent", "N/A"))
+        to_return.append(f"{event.get('intHomeScore', 'N/A')}-{event.get('intAwayScore', 'N/A')}")
+        to_return.append(event.get('strTimestamp','N/A'))
+        to_return.append(f"{event.get('strVenue','N/A')}, {event.get('strCountry','N/A')}")
 
         # Fetch and convert home team badge
         home_badge_url = event.get("strHomeTeamBadge", "https://www.huber-online.com/daisy_website_files/_processed_/8/0/csm_no-image_d5c4ab1322.jpg")
