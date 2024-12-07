@@ -309,8 +309,7 @@ def get_team_id(query):
 def get_sports_data(team_id):
     response = requests.get(f"https://www.thesportsdb.com/api/v1/json/3/eventslast.php?id={team_id}").json()
     to_return = []
-    for i in range(5):
-        event = response["results"][i]
+    for event in response["results"][:5]:
         to_return.append(event["strEvent"])
         to_return.append(f"{event['intHomeScore']}-{event['intAwayScore']}")
         to_return.append(event['strTimestamp'])
@@ -328,8 +327,7 @@ def get_team_id(query):
 def get_sports_data(team_id):
     response = requests.get(f"https://www.thesportsdb.com/api/v1/json/3/eventslast.php?id={team_id}").json()
     to_return = []
-    for i in range(5):
-        event = response["results"][i]
+    for event in response["results"][:5]:
         
         # Add basic event details
         to_return.append(event["strEvent"])
