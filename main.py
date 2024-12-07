@@ -301,6 +301,8 @@ def get_data(data, username):
 @client.request
 def get_team_id(query):
     response = requests.get(f"https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t={query}").json()
+    if response["teams"] == None:
+        return False
     return response["teams"][0]["idTeam"]
 
 @client.request
@@ -318,6 +320,8 @@ def get_sports_data(team_id):
 @tclient.request
 def get_team_id(query):
     response = requests.get(f"https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t={query}").json()
+    if response["teams"] == None:
+        return False
     return response["teams"][0]["idTeam"]
 
 @tclient.request
