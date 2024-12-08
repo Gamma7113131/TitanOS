@@ -315,6 +315,7 @@ def get_sports_data(team_id):
         to_return.append(event.get('strTimestamp','N/A'))
         to_return.append(f"{event.get('strVenue','N/A')}, {event.get('strCountry','N/A')}")
         to_return.append("")
+        to_return.append("")
     return to_return
 
 @tclient.request
