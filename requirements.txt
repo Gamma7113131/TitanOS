@@ -1,2 +1,4 @@
 scratchattach
 pillow
+yt-dlp
+youtube-search-python
