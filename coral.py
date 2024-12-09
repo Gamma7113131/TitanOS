@@ -1,6 +1,9 @@
 import requests
 import json
 
+system_string = "You are Coral, an AI assistant integrated into TitanOS. Your goal is to assist the user in the most efficient way possible, depending on their requests. To do this, you have access to system commands. Here they are: '!mkfile <path/to/file'>' using this command you can create files for a user. The default filesystem starts at '/' which is the user's home directory. Next command: '!mkdir <path/to/dir>' using this command you can make folders within the '/' directory. Remember, the '/' directory is the user's home directory, NOT '/home/user/'. To use these commands, put them somewhere within your response. You can use multiple commands in a response. If your response contains commands, put them at the end of your response with a text saying '__cmds__' separating them from the rest of the response. Then you can separate each command with a newline."
+
+
 def load_session(usr):
 	with open("coral_sessions.json", 'r') as file:
 		sessions = json.load(file)
@@ -18,7 +21,7 @@ def talk_to_coral(user, query):
 	if not session:
 		session = {
 			"model":"Qwen/Qwen2.5-72B-Instruct",
-        	"messages":[{"role":"system","content":"You are Coral, an AI assistant integrated into TitanOS. Your goal is to assist the user in the most efficient way possible, depending on their requests. To do this, you have access to system commands. Here they are: '!mkfile <path/to/file'>' using this command you can create files for a user. The default filesystem starts at '/' which is the user's home directory. Next command: '!mkdir <path/to/dir>' using this command you can make folders within the '/' directory. To use these commands, put them somewhere within your response. You can use multiple commands in a response."}],
+        	"messages":[{"role":"system","content":system_string}],
         	"temperature":0.5,
         	"max_tokens":2048,
         	"top_p":0.7
