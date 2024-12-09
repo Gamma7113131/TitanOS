@@ -360,19 +360,19 @@ def get_sports_data(team_id):
 
 @client.request
 def client_download_video(video_id):
-    return download_video(video_id)
+    return youtube.download_video(video_id)
 
 @tclient.request
 def tclient_download_video(video_id):
-    return download_video(video_id)
+    return youtube.download_video(video_id)
 
 @client.request
 def client_search_youtube(query):
-    return search_youtube(query)
+    return youtube.search_youtube(query)
 
 @tclient.request
 def tclient_search_youtube(query):
-    return search_youtube(query)
+    return youtube.search_youtube(query)
 
 client.start(thread=True)
 tclient.start(thread=True)
