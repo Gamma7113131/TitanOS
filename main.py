@@ -359,120 +359,20 @@ def get_sports_data(team_id):
     return to_return
 
 @client.request
-def download_video(video_id):
-    try:
-        # Download the video (no audio) using yt-dlp
-        ydl_opts = {
-            'format': 'bestvideo',
-            'outtmpl': f'./user_data/{video_id}.mp4',
-            'noplaylist': True,
-            'postprocessors': [{
-                'key': 'FFmpegVideoConvertor',
-                'preferredcodec': 'mp4',
-                'preferredquality': 'best',
-            }],
-            'postprocessor_args': ['-an'],  # '-an' disables audio
-            'quiet': True
-        }
-
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([f'https://www.youtube.com/watch?v={video_id}'])
-
-        # Convert video to data
-        video_path = f'./user_data/{video_id}.mp4'
-        with open(video_path, 'rb') as vid_file:
-            video_data = conversion.convert_vid(vid_file, size=32, fps=15)  # You can adjust size and fps as needed
-        
-        # Remove the video after conversion to avoid taking up space
-        os.remove(video_path)
-
-        return video_data
-    except Exception as e:
-        return f"Error downloading or converting video: {str(e)}"
-
+def client_download_video(video_id):
+    return download_video(video_id)
 
 @tclient.request
-def download_video(video_id):
-    try:
-        # Download the video (no audio) using yt-dlp
-        ydl_opts = {
-            'format': 'bestvideo',
-            'outtmpl': f'./user_data/{video_id}.mp4',
-            'noplaylist': True,
-            'postprocessors': [{
-                'key': 'FFmpegVideoConvertor',
-                'preferredcodec': 'mp4',
-                'preferredquality': 'best',
-            }],
-            'postprocessor_args': ['-an'],  # '-an' disables audio
-            'quiet': True
-        }
+def tclient_download_video(video_id):
+    return download_video(video_id)
 
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([f'https://www.youtube.com/watch?v={video_id}'])
-
-        # Convert video to data
-        video_path = f'./user_data/{video_id}.mp4'
-        with open(video_path, 'rb') as vid_file:
-            video_data = conversion.convert_vid(vid_file, size=32, fps=15)  # You can adjust size and fps as needed
-        
-        # Remove the video after conversion to avoid taking up space
-        os.remove(video_path)
-
-        return video_data
-    except Exception as e:
-        return f"Error downloading or converting video: {str(e)}"
-
-
-# Search for YouTube videos
 @client.request
-def search_youtube(query):
-    from youtubesearchpython import VideosSearch
-    try:
-        videosSearch = VideosSearch(query, limit = 6)
-        result = videosSearch.result()
-        
-        # Prepare a list of video data
-        video_list = []
-        for video in result["result"]:
-            video_data = {
-                "title": video.get("title"),
-                "publishedTime": video.get("publishedTime"),
-                "duration": video.get("duration"),
-                "views": video.get("viewCount", {}).get("text"),
-                "thumbnail": video.get("thumbnails", [{}])[0].get("url"),
-                "url": video.get("link")
-            }
-            video_list.append(video_data)
-        
-        return video_list
-    except Exception as e:
-        return f"Error searching YouTube: {str(e)}"
-
+def client_search_youtube(query):
+    return search_youtube(query)
 
 @tclient.request
-def search_youtube(query):
-    from youtubesearchpython import VideosSearch
-    try:
-        videosSearch = VideosSearch(query, limit = 6)
-        result = videosSearch.result()
-        
-        # Prepare a list of video data
-        video_list = []
-        for video in result["result"]:
-            video_data = {
-                "title": video.get("title"),
-                "publishedTime": video.get("publishedTime"),
-                "duration": video.get("duration"),
-                "views": video.get("viewCount", {}).get("text"),
-                "thumbnail": video.get("thumbnails", [{}])[0].get("url"),
-                "url": video.get("link")
-            }
-            video_list.append(video_data)
-        
-        return video_list
-    except Exception as e:
-        return f"Error searching YouTube: {str(e)}"
+def tclient_search_youtube(query):
+    return search_youtube(query)
 
 client.start(thread=True)
 tclient.start(thread=True)
