@@ -4,8 +4,7 @@ import oslogin
 import os
 import requests
 import conversion
-import yt_dlp
-from youtubesearchpython import VideosSearch
+from youtube import download_video, search_youtube
 
 #Setup
 password = os.getenv('PASSWORD')  # Password stored in environment variable PASSWORD
