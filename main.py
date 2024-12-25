@@ -14,6 +14,14 @@ cloud = session.connect_scratch_cloud("1100152494")
 client = cloud.requests(no_packet_loss=True, respond_order="finish")
 tcloud = sa.get_tw_cloud("1100152494")
 tclient = tcloud.requests(no_packet_loss=True, respond_order="finish")
+mycloud = sa.CustomCloud(
+    project_id="1100152494",
+    cloud_host="ws://uukelele.ddns.net:8080",
+    username="TitanOS",
+    length_limit = None,
+    allow_non_numeric = True,
+)
+myclient = mycloud.requests(no_packet_loss=True, respond_order="finish")
 
 #Setting up directories
 os.makedirs("user_data", exist_ok=True)
